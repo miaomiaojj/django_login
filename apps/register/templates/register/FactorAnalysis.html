@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FactorAnalysis</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'register/style.css' %}">
+	<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-8">
+				<div class="alert alert-success" role="alert'">
+                    <p>Analysis which factors affect people’s personal finances status</p>
+                </div>
+            </div>
+        </div>
+                    <form method="post" action="/DatesetInfo">
+                        {% csrf_token %}
+                    <p><strong>Step 1：Please select dataset for analysis</strong></p>
+
+                   <select id="DatasetDropdown" name = "dropdown">
+
+                    <option value = "{{ list }}">{{ list }}</option>
+
+            </select>
+
+                <div class="mx-auto text-center">
+                                <input type="submit" value="select" class="btn btn-primary">
+                            </div>
+                        <div >
+                            <p {{hiden}}>{{datasetinfo11}}<br/>
+                                {{datasetinfo12}}<br/>
+                                {{datasetinfo13}}<br/>
+                                {{datasetinfo14}}<br/>
+                                {{datasetinfo15}}<br/>
+                                {{datasetinfo16}}<br/>
+                                {{datasetinfo17}}<br/>
+                                {{datasetinfo18}}<br/>
+                                {{datasetinfo19}}<br/>
+                                {{datasetinfo110}}<br/>
+                                {{datasetinfo111}}<br/>
+                                {{datasetinfo112}}<br/>
+                                {{datasetinfo113}}<br/>
+                                {{datasetinfo114}}<br/>
+                                {{datasetinfo115}}<br/>
+                                {{datasetinfo116}}<br/>
+
+                            </p>
+                        </div>
+                    </form>
+
+    <form method="post" action="/AnalysisScore">
+                        {% csrf_token %}
+                    <p><strong>Step 2：Start analysis select dataset</strong></p>
+
+
+
+                <div class="mx-auto text-center">
+                                <input type="submit" value="start analysis" class="btn btn-primary">
+                            </div>
+                        <div>
+                            <pre>{{ScoreList}}</pre>
+                            <pre>{{Conclusion1}}</pre>
+                        </div>
+                    </form>
+    <form method="post" action="/HowFactorImpact">
+                        {% csrf_token %}
+                    <p><strong>Step 3：How those factor impact personal income</strong></p>
+        <div class="mx-auto text-center">
+                                <input type="submit" value="Show me analysis result" class="btn btn-primary">
+                            </div>
+        <br>
+        <div {{hidden2}}>
+         <div class="test_temp" style="width:50%; height: 500px; float:left;">
+
+        <img src="{{Analysisgraph1}} " width="400" height="400" />
+         </div>
+        <div class="test_temp" style="width:50%; height: 500px; float:left;">
+
+            <p><strong>Age and Personal income relationship</strong><br>Age from 35 to 50 is the best timing to earn money</p>
+         </div>
+         <div class="test_temp" style="width:50%; height: 500px; float:left;">
+
+         <img src={{Analysisgraph2}} width="400" height="400" />
+         </div>
+         <div class="test_temp" style="width:50%; height: 500px; float:left;">
+            <p><strong>Education level and Personal income relationship</strong><br>Education level is not determining factors in personal income</p>
+         </div>
+
+          <div class="test_temp" style="width:50%; height: 500px; float:left;">
+         <img src={{Analysisgraph4}} width="400" height="400" />
+          </div>
+          <div class="test_temp" style="width:50%; height: 500px; float:left;">
+            <p><strong>marital status and Personal income relationship</strong><br>Marital status is not determining factors in personal income.High level income person have stable marital status</p>
+         </div>
+         <div class="test_temp" style="width:50%; height: 500px; float:left;">
+         <img src={{Analysisgraph5}} width="400" height="400" />
+         </div>
+         <div class="test_temp" style="width:50%; height: 500px; float:left;">
+            <p><strong>Occupation and Personal income relationship</strong><br>Occupation is not determining factors in personal income. Exec-managerial and Prof-specialty are high chance good income occupation</p>
+         </div>
+
+        <div class="test_temp" style="width:50%; height: 500px; float:left;">
+         <img src={{Analysisgraph6}} width="400" height="400" />
+        </div>
+        <div class="test_temp" style="width:50%; height: 500px; float:left;">
+            <p><strong>Family relationship and Personal income relationship</strong><br>Family relationship is not determining factors in personal income. Husband is high chance to have better personal income role compare to others</p>
+         </div>
+         <div class="test_temp" style="width:50%; height: 500px; float:left;">
+         <img src={{Analysisgraph7}} width="400" height="400" />
+         </div>
+          <div class="test_temp" style="width:50%; height: 500px; float:left;">
+            <p><strong>Gender and Personal income relationship</strong><br>Gender is not determining factors in personal income. Male have better personal income compare to female</p>
+         </div>
+
+        </div>
+    </form>
+    <form method="post" action="/PredictPage">
+                        {% csrf_token %}
+                    <p><strong>Predict your personal financial status</strong></p>
+
+                <div class="mx-auto text-center">
+                                <input type="submit" value="Predict" class="btn btn-primary">
+                </div>
+                    </form>
+
+</div>
+</body>
+</html>

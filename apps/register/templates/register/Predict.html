@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FactorAnalysis</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'register/style.css' %}">
+	<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-8">
+				<div class="alert alert-success" role="alert'">
+                    <p> Predict and Manage your Financial Status </p>
+                </div>
+            </div>
+        </div>
+    <p><strong>Part1: Base on personal information predict monthly salary</strong></p>
+    <div><p>Hi {{user.first_name}} {{user.last_name}}, this is your personal information:</p>
+        <p>Age: {{age}} </br> Sex: {{sex}} </br>Education level: {{education}} </br>Location: {{location}} </br>Marital Status: {{Maritalstatus}} </br>Occupation: {{Occupation}} </br>Work per week: {{hours_per_week}} </br>Native Country: {{native_country}} </p></div>
+
+      <form method="post" action="/PredictResult">
+                        {% csrf_token %}
+
+ <div class="mx-auto text-center">
+     <input type="submit" value="start analysis" class="btn btn-primary">
+
+
+                    <p></br>{{yourpredict}}<strong>{{predict_result}}</strong></p>
+ </div>
+
+                    </form>
+
+    <p><strong>Part2: Please key in your past year networth information</strong></p>
+<form method="post" action="/PredictWealth">
+							   {% csrf_token %}
+				<div class="card" >
+                    <h4 class="card-header text-center">Networth Information</h4>
+
+                      <div class="card-block">
+
+
+                           <div class="form-group">
+							      <label>Networt 2007</label><br>
+								<input type="number"  name="Networth_2007" value="11137" class="form-control">
+								  </div>
+                           <div class="form-group">
+							      <label>Networt 2008</label><br>
+								<input type="number"  name="Networth_2008" value="14732" class="form-control">
+								  </div>
+                           <div class="form-group">
+							      <label>Networt 2009</label><br>
+								<input type="number"  name="Networth_2009" value="15084" class="form-control">
+								  </div> <div class="form-group">
+							      <label>Networt 2010</label><br>
+								<input type="number"  name="Networth_2010" value="17130" class="form-control">
+								  </div>
+                           <div class="form-group">
+							      <label>Networt 2011</label><br>
+								<input type="number"  name="Networth_2011" value="16680" class="form-control">
+								  </div>
+						  <div class="form-group">
+							      <label>Networt 2012</label><br>
+								<input type="number"  name="Networth_2012" value="22207" class="form-control">
+								  </div>
+						  <div class="form-group">
+							      <label>Networt 2013</label><br>
+								<input type="number"  name="Networth_2013" value="24859" class="form-control">
+								  </div>
+						  <div class="form-group">
+							      <label>Networt 2014</label><br>
+								<input type="number"  name="Networth_2014" value="27687" class="form-control">
+								  </div>
+						  <div class="form-group">
+							      <label>Networt 2015</label><br>
+								<input type="number"  name="Networth_2015" value="27220" class="form-control">
+								  </div>
+						  <div class="form-group">
+							      <label>Networt 2016</label><br>
+								<input type="number"  name="Networth_2016" value="28815" class="form-control">
+								  </div>
+						  <div class="form-group">
+							      <label>Networt 2017</label><br>
+								<input type="number"  name="Networth_2017" value="30715" class="form-control">
+								  </div>
+						  <div class="form-group">
+							      <label>Networt 2018</label><br>
+								<input type="number"  name="Networth_2018" value="34026" class="form-control">
+								  </div>
+						  <div class="form-group">
+							      <label>Networt 2019</label><br>
+								<input type="number"  name="Networth_2019" value="32459" class="form-control">
+								  </div>
+						  <div class="form-group">
+							      <label>Networt 2020</label><br>
+								<input type="number"  name="Networth_2020" value="40000" class="form-control">
+								  </div>
+						   <div class="mx-auto text-center">
+							     <input type="submit" value="Submit" class="btn btn-primary">
+						    </div>
+						    <div class="mx-auto text-center">
+							    <label>{{InfoNullCheck}}</label><br>
+						    </div>
+						  <p></br>{{yourWealthpredict}}<strong>{{predictwealth_result}}</strong></p>
+					  </div>
+				</div>
+</form>
+
+
+						  </div>
+
+
+
+</div>
+</body>
+</html>
