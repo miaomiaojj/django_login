@@ -156,13 +156,11 @@ class FactorAnalysisFunction:
  df_scores = pd.DataFrame(fit.scores_)
  df_columns = pd.DataFrame(X.columns)
 
-
- # 合并
+ #combine feature and score
  df_feature_scores = pd.concat([df_columns, df_scores], axis=1)
 
- #  定义列名
+ # rename list
  df_feature_scores.columns = ['Feature', 'Score']
- # 按照score排序
 
  final_result_score=df_feature_scores.sort_values(by='Score', ascending=False)
  print(final_result_score)
