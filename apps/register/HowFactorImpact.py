@@ -20,8 +20,8 @@ class FactorAnalysisFunction:
  #statistics = df[["age", "Income"]].describe()
 # print(statistics)
 
- count = pd.crosstab(df.capital_gain, df.Income)
- print(count)
+ count = pd.crosstab(df.marital_status, df.Income)
+ #print(df.Income.count)
 #---------------------sex--------------------
 #count.T.plot(kind='bar')
 #---------------------Age--------------------
@@ -33,22 +33,24 @@ class FactorAnalysisFunction:
 #---------------------education_num-------
 #count.T.plot(kind='area', stacked=False)
 #--------------------marital_status-------
-#count.T.plot(kind='area', stacked=False)
+ count.T.plot(kind='bar', stacked=False)
 #--------------------occuption------------
  #count.T.plot(kind='bar')
 # --------------------occuption------------
 #count.T.plot(kind='bar')
 #relationship
 
- #count.T.plot(kind='pie', subplots=True, figsize=(8, 4))
+ #count.T.plot(kind='area', subplots=True, figsize=(8, 4))
+
+
  #df.plot(kind='scatter', x=df.hours_per_week, y=df.Income)
 
  #count.T.plot(kind='box',  sym='r+')
  fig1 = plt.gcf()
 
- df.plot(kind='scatter',x='capital_gain', y='capital_loss')
+ #df.plot(kind='area',x=df.capital_gain, y=df.Income)
  plt.show()
- #plt.draw()
+ plt.draw()
 #apps/register/templates/register/AdultDataset
- #fig1.savefig('templates/register/AdultDataset/'+ 'relationship_income' + '.png')  # Use fig. here
+ fig1.savefig('templates/'+ 'maritalStatus_income' + '.png')  # Use fig. here
 
