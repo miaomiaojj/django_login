@@ -1,41 +1,28 @@
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-
-# 最影响结果的K个特征
-
 from sklearn.linear_model import LinearRegression
-from sklearn import preprocessing
-from sklearn.datasets import make_regression
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OrdinalEncoder
 
 
 class SalaryPredict():
- #XPredict_salary=np.array([[39,'Singapore','State-gov','Bachelors','Never-married','Handlers-cleaners', 'Male',39,'Singapore'],[39,'Singapore','State-gov','Bachelors','Never-married','Handlers-cleaners', 'Male',40,'Singapore']],dtype=object)#.reshape(1,-1).flatten())#.reshape(1,-1) #make_regression(n_samples=3, n_features=1, noise=0.1, random_state=1)
 
  def __init__(self, XPredict_salary):
         self.XPredict_salary = XPredict_salary
 
  def Predict(self):
   df = pd.read_csv('Wealth.csv', index_col=0)
-
  # Show dataframe
+  df = df[['age', 'location', 'workclass', 'education',
+           'marital_status', 'occupation', 'sex',  'hours_per_week', 'native_country','MonthyIncome_2020','Networth_2007','Networth_2008','Networth_2009','Networth_2010','Networth_2011','Networth_2012','Networth_2013','Networth_2014','Networth_2015','Networth_2016','Networth_2017','Networth_2018','Networth_2019','Networth_2020']].copy()
 
-  df = df[['age', 'location', 'workclass', 'education', 'marital_status', 'occupation', 'sex',  'hours_per_week', 'native_country','MonthyIncome_2020','Networth_2007','Networth_2008','Networth_2009','Networth_2010','Networth_2011','Networth_2012','Networth_2013','Networth_2014','Networth_2015','Networth_2016','Networth_2017','Networth_2018','Networth_2019','Networth_2020']].copy()
-
-  y_list=df.MonthyIncome_2020.values#[:, -1]
+  y_list=df.MonthyIncome_2020.values
   X_list=df.iloc[:,:9]
 
   y_array=np.array(y_list).reshape(-1,1)
   X_array=np.array(X_list).reshape(-1,9)
   enc = OrdinalEncoder()
-
   enc.fit(X_array)
-
-  #print("categories_",enc.categories_)
-  #print(X_array[2])
-
   Xtransformed=enc.transform(X_array)
   print(enc.transform(X_array))
 
@@ -54,10 +41,6 @@ class SalaryPredict():
   print("model.score(x_test, y_test)",model.score(x_test, y_test))
 
 
-#  XPredict=np.array([[39,'Singapore','State-gov','Bachelors','Never-married','Handlers-cleaners', 'Male',39,'Singapore'],[39,'Singapore','State-gov','Bachelors','Never-married','Handlers-cleaners', 'Male',40,'Singapore']],dtype=object)#.reshape(1,-1).flatten())#.reshape(1,-1) #make_regression(n_samples=3, n_features=1, noise=0.1, random_state=1)
-
-
- # print("XPredict",XPredict)
   XPredict_transformed = enc.transform(self.XPredict_salary)
   # make a prediction
   ynew = model.predict(XPredict_transformed)
