@@ -1,1 +1,1 @@
-web: gunicorn financialanalysisystem.wsgi --log-file -
+web: gunicorn django_login.wsgi --log-file -
