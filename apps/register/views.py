@@ -51,12 +51,14 @@ def login(request):
 
             print("login success")
             request.session['id'] = user.id
-            #return redirect('/success')
-            return render(request, 'register/success.html')
+            return redirect('/success')
+
+           # return render(request, 'register/success.html')
            # return redirect('register/.html')
         else:
             print("login fail")
-            return render(request, 'register/index.html')
+            return redirect('/')
+           # return render(request, 'register/index.html')
 
 
 def success(request):
