@@ -4,9 +4,9 @@ urlpatterns = [
 
     url(r'^$', index),
     url(r'^userinfocollect$', userinfocollect),
-    url(r'^register$', register),
-    url(r'^success$', success),
-    url(r'^login$', login),
+    url(r'^financialanalysisystem.herokuapp.com/register$', register),
+    url(r'^financialanalysisystem.herokuapp.com/success$', success),
+    url(r'^financialanalysisystem.herokuapp.com/login$', login),
     url(r'^FactorAnalysis$', FactorAnalysis),
     url(r'^HowFactorImpact$', HowFactorImpact),
     url(r'^DatesetInfo$', DatesetInfo),

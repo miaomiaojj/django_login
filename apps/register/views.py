@@ -55,7 +55,7 @@ def login(request):
             return redirect('https://financialanalysisystem.herokuapp.com/success')
         else:
             print("login fail")
-            return redirect('/')
+            return redirect('https://financialanalysisystem.herokuapp.com/')
 
 
 def success(request):
