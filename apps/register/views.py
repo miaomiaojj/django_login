@@ -52,10 +52,10 @@ def login(request):
             print("login success")
             request.session['id'] = user.id
             #return redirect('/success')
-            return redirect('https://financialanalysisystem.herokuapp.com/success')
+            return redirect('register/success.html')
         else:
             print("login fail")
-            return redirect('https://financialanalysisystem.herokuapp.com/')
+            return redirect('register/index.html')
 
 
 def success(request):
