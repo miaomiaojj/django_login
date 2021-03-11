@@ -31,8 +31,8 @@ SECRET_KEY = '*wi&v$_lj_y9m_4^i583hb+*zdmm&mx_=c$_v*j9lk*tyaiiwj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['financialanalysisystem.herokuapp.com',
-                 'financialanalysisystem.herokuapp.com/login'
+ALLOWED_HOSTS = [#'financialanalysisystem.herokuapp.com',
+
                  ]
 
 STATICFILES_DIRS = (
