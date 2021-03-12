@@ -54,11 +54,11 @@ def login(request):
            # return redirect('/success')
 
            # return render(request, 'register/success.html')
-            return redirect('register/success.html')
+            return redirect('/success')
         else:
             print("login fail")
            # return redirect('/')
-            return render(request, 'register/index.html',
+            return render(request, '/',
                       {'LoginMassage': "UserID or password wrong"})
            # return render(request, 'register/index.html')
 
