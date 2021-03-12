@@ -51,13 +51,15 @@ def login(request):
 
             print("login success")
             request.session['id'] = user.id
-            return redirect('/success')
+           # return redirect('/success')
 
            # return render(request, 'register/success.html')
-           # return redirect('register/.html')
+            return redirect('register/success.html')
         else:
             print("login fail")
-            return redirect('/')
+           # return redirect('/')
+            return render(request, 'register/index.html',
+                      {'LoginMassage': "UserID or password wrong"})
            # return render(request, 'register/index.html')
 
 
