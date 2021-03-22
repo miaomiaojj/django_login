@@ -58,18 +58,19 @@ def login(request):
         else:
             print("login fail")
            # return redirect('/')
-            return render(request, '/',
-                      {'LoginMassage': "UserID or password wrong"})
+            return render(request, 'register/index.html',
+                          {'LoginMassage': "UserID or password wrong"})
+
+
+    else:
+        return render(request, 'register/index.html',
+                      {'LoginMassage': "UserID not exist"})
+
            # return render(request, 'register/index.html')
 
 
 def success(request):
     user = User.objects.get(id=request.session['id'])
-    #if (UserInfo.objects.filter(email=user).exists()):
-    #    print("user exit email")
-
-    #   print(UserInfo.objects.filter(email=user))
-     #   UserInfo.objects.filter(email=user).delete()
 
     context = {
         "user": user,
