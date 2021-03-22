@@ -280,8 +280,6 @@ def HowFactorImpact(request):
 
     }
 
-
-
     return render(request, 'register/FactorAnalysis.html', context)
 
 def PredictPage(request):
@@ -410,7 +408,7 @@ def PredictWealth(request):
     Networth_2017 = float(request.POST['Networth_2017'])
     Networth_2018 = float(request.POST['Networth_2018'])
     Networth_2019 = float(request.POST['Networth_2019'])
-    Networth_2020 = float(request.POST['Networth_2019'])
+  #  Networth_2020 = float(request.POST['Networth_2019'])
 
     PreparePredictWealthlist = np.array(
         [Networth_2007, Networth_2008,Networth_2009, Networth_2010, Networth_2011, Networth_2012, Networth_2013, Networth_2014, Networth_2015, Networth_2016, Networth_2017, Networth_2018,Networth_2019], dtype=object).reshape(1, -1)

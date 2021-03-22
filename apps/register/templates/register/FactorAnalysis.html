@@ -74,11 +74,10 @@
                             </div>
         <br>
         <div {{hidden2}}>
-         <div class="test_temp" style="width:50%; height: 500px; float:left;">
+
 
         <img src="{{Analysisgraph1}} " width="400" height="400" />
-         </div>
-        <div class="test_temp" style="width:50%; height: 500px; float:left;">
+
 
             <p><strong>Age and Personal income relationship</strong><br>(a)	Age below 30, there are few people have ability to reach annul income above 50k <br/>
 (b)	As the age range increase, the proportion of people reach 50k annul income increase. Wealth and wealth‐adjusted income generally rise with age.<br/>
@@ -89,53 +88,41 @@
 (3)	As people get older, it becomes harder to keep accumulate wealth.<br/>
 </p>
 
-         </div>
-         <div class="test_temp" style="width:50%; height: 500px; float:left;">
+
 
          <img src={{Analysisgraph2}} width="400" height="400" />
-         </div>
-         <div class="test_temp" style="width:50%; height: 500px; float:left;">
+
              <br><strong>Education level and Personal income relationship</strong><br>(a)	There are 85 percent people educated over 8 years.</br>
 (b)	There are very few people schooling year between 0 to 8 annual income reach 50k and above.</br>
 (c)	Between 8 to 11 years schooling year, there are 12 percent people annual income over 50k. </br>
 (d)	Between 11 to 13 years schooling year, there are 30 percent people annual income over 50k. </br>
              (e)	Between 13 to 16, there are 60 percent people annual income over 50k. </br> </br> conclusion:</br>Education is higher, the choice to achieve annual income reach over 50k is higher.
 </p>
-         </div>
 
-          <div class="test_temp" style="width:50%; height: 500px; float:left;">
          <img src={{Analysisgraph4}} width="400" height="400" />
-          </div>
-          <div class="test_temp" style="width:50%; height: 500px; float:left;">
+
               <br><strong>marital status and Personal income relationship</strong><br>(a)	There is a very high percent of people married with spouse no matter people can reach annul income over 50k or not. </br>
 (b)	In the other hand, people married with spouse is much more than never married, divorced and other status in over 50k annual income category.</br>
 (c)	In annual income below 50k category, people never married and divorced take highest percentage.</br>
               (d)	However, this graph cannot show us what is cause and what is effect.</br></br>conclusion:</br> People married with spouse is much more than never married, divorced and other status in over 50k annual income category. However, this study shows us what is cause and what is effect. </br>
 
 </p>
-         </div>
-         <div class="test_temp" style="width:50%; height: 500px; float:left;">
          <img src={{Analysisgraph5}} width="400" height="400" />
-         </div>
-         <div class="test_temp" style="width:50%; height: 500px; float:left;">
+
             <p><strong>Occupation and Personal income relationship</strong><br>Occupation is not determining factors in personal income. Exec-managerial and Prof-specialty are high chance good income occupation</p>
-         </div>
 
-        <div class="test_temp" style="width:50%; height: 500px; float:left;">
          <img src={{Analysisgraph6}} width="400" height="400" />
-        </div>
-        <div class="test_temp" style="width:50%; height: 500px; float:left;">
-            <p><strong>Family relationship and Personal income relationship</strong><br>Family relationship is not determining factors in personal income. Husband is high chance to have better personal income role compare to others</p>
-         </div>
-         <div class="test_temp" style="width:50%; height: 500px; float:left;">
-         <img src={{Analysisgraph7}} width="400" height="400" />
-         </div>
-          <div class="test_temp" style="width:50%; height: 500px; float:left;">
-            <p><strong>Gender and Personal income relationship</strong><br>Gender is not determining factors in personal income. Male have better personal income compare to female</p>
-         </div>
 
-        </div>
-    </form>
+           <p><strong>Family relationship and Personal income relationship</strong><br>Family relationship is not determining factors in personal income. Husband is high chance to have better personal income role compare to others</p>
+
+         <img src={{Analysisgraph7}} width="400" height="400" />
+
+            <p><strong>Gender and Personal income relationship</strong><br>Gender is not determining factors in personal income. Male have better personal income compare to female</p>
+
+
+
+
+</div>
     <form method="post" action="/PredictPage">
                         {% csrf_token %}
                     <p><strong>Predict your personal financial status</strong></p>
@@ -145,6 +132,8 @@
                 </div>
                     </form>
 
+    </form>
 </div>
+
 </body>
 </html>
