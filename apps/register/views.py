@@ -283,14 +283,14 @@ def PredictPage(request):
 
 
  print("PredictPageid=request.session['id']",request.session['id'])
- user = User.objects.get(id=request.session['id'])
+ #user = User.objects.get(id=request.session['id'])
 
  workclass="Private"
 # clean old data
- if (UserInfo.objects.filter(email=user).exists()):
+ if (UserInfo.objects.filter(id=request.session['id']).exists()):
    print("user predict exist")
 
-   UserInfomation=np.array(UserInfo.objects.filter(email=user).values())
+   UserInfomation=np.array(UserInfo.objects.filter(id=request.session['id']).values())
    print("UserInfomation",UserInfomation.flatten())
    UserInfolist=UserInfomation[0]
 
@@ -299,7 +299,7 @@ def PredictPage(request):
 
 
  context = {
-    "user": user,
+    #"user": user,
      "age":UserInfolist["age"],
      "location":UserInfolist["location"],
      "education":UserInfolist["education"],
