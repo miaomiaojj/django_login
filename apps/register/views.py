@@ -95,6 +95,9 @@ def userinfocollect(request):
         print( UserInfo.objects.filter(email=user))
         UserInfo.objects.filter(email=user).delete()
 
+    else:
+        print("user not exit")
+
 
     userInformation = UserInfo.objects.create(email=user,
                                               age=request.POST.get('age'),
@@ -133,12 +136,6 @@ def userinfocollect(request):
         request.POST['OtherLoan'])
 
     Networth = Asset - liabilities
-
-    print(float(monthly_Income))
-    print(float(monthly_Expense))
-    print(float(monthly_Balance))
-    print(float(Asset))
-    print(float(Networth))
 
     if (monthly_Balance < 0.4 * monthly_Income):
         Summary1 = "reduce monthly expense,check which part excess budget"
@@ -285,7 +282,7 @@ def HowFactorImpact(request):
 def PredictPage(request):
 
 
- print("id=request.session['id']",request.session['id'])
+ print("PredictPageid=request.session['id']",request.session['id'])
  user = User.objects.get(id=request.session['id'])
 
  workclass="Private"
