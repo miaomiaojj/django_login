@@ -321,14 +321,14 @@ def PredictPage(request):
 
 def PredictResult(request):
 
-    user = User.objects.get(id=request.session['id'])
+    #user = User.objects.get(id=request.session['id'])
 
     workclass = "Private"
     # clean old data
-    if (UserInfo.objects.filter(email=user).exists()):
+    if (UserInfo.objects.filter(id=request.session['id']).exists()):
         print("user predict exist")
 
-        UserInfomation = np.array(UserInfo.objects.filter(email=user).values())
+        UserInfomation = np.array(UserInfo.objects.filter(id=request.session['id']).values())
         print("UserInfomation", UserInfomation.flatten())
         UserInfolist = UserInfomation[0]
         print(UserInfolist["age"])
@@ -346,7 +346,7 @@ def PredictResult(request):
         print("user predict not exist")
 
     context = {
-        "user": user,
+       # "user": user,
         "age": UserInfolist["age"],
         "location": UserInfolist["location"],
         "education": UserInfolist["education"],
@@ -365,15 +365,15 @@ def PredictResult(request):
     return render(request, 'register/Predict.html', context)
 
 def PredictWealth(request):
-    user = User.objects.get(id=request.session['id'])
+    #user = User.objects.get(id=request.session['id'])
 
 
     workclass = "Private"
-    # clean old data
-    if (UserInfo.objects.filter(email=user).exists()):
+    # clean old data if (UserInfo.objects.filter().exists()):
+    if (UserInfo.objects.filter(id=request.session['id']).exists()):
         print("user predict exist")
 
-        UserInfomation = np.array(UserInfo.objects.filter(email=user).values())
+        UserInfomation = np.array(UserInfo.objects.filter(id=request.session['id']).values())
         print("UserInfomation", UserInfomation.flatten())
         UserInfolist = UserInfomation[0]
         print(UserInfolist["age"])
@@ -416,7 +416,7 @@ def PredictWealth(request):
     print(PreparePredictWealthlist)
 
     context = {
-        "user": user,
+        #"user": user,
         "age": UserInfolist["age"],
         "location": UserInfolist["location"],
         "education": UserInfolist["education"],
