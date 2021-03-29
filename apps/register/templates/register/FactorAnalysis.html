@@ -21,9 +21,10 @@
                         {% csrf_token %}
                     <p><strong>Step 1：Please select dataset for analysis</strong></p>
 
-                   <select id="DatasetDropdown" name = "dropdown">
+                   <select type="text" id="DatasetDropdown" name = "DatasetDropdown">
 
-                    <option value = "{{ list }}">{{ list }}</option>
+                    <option value = "AdultDataset">Adult Dataset</option>
+                       <option value = "other">other Dataset</option>
 
             </select>
 

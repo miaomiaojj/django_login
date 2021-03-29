@@ -74,8 +74,8 @@ def success(request):
 
     context = {
         "user": user,
-        "pleasekeyininformation":"please key in information"
-        #  "hidden":"hidden"
+        "pleasekeyininformation":"please key in information",
+        "hidden":"hidden"
 
     }
 
@@ -143,8 +143,11 @@ def userinfocollect(request):
         Summary1 = "Add 30% Monthly balance to saving account or investment, 10% Monthly balance used to cash reserve "
     if (liabilities > 0.5 * Asset):
         Summary2 = "reduce long term liabilities smaller than 50% Asset, short term liabilities smaller than 20% of asset"
+    elif (liabilities < 0.5 * Asset):
+        Summary2 = "Assess your ability to service your debts"
     elif (Networth < 0):
         Summary2 = "Assess your ability to service your debts"
+
 
     context = {
         "user":user,
@@ -178,10 +181,10 @@ def userinfocollect(request):
 
 
 def FactorAnalysis(request):
-    #  Dataset_list = {"AdultDateset"}
+    list = {"AdultDateset"}
     context = {
         'hidden2': "hidden",
-        'list': "AdultDateset",
+        'list':list,
         'hiden':"hidden"
     }
     return render(request, 'register/FactorAnalysis.html', context)
@@ -190,8 +193,10 @@ def FactorAnalysis(request):
 def DatesetInfo(request):
     #  Dataset_list = {"AdultDateset"}
 
-
-    context = {
+    dataset = request.POST['DatasetDropdown']
+    print("dataset Select", dataset)
+    if (dataset == "AdultDataset"):
+      context = {
         'hidden2': "hidden",
         'list': "AdultDateset",
         'datasetinfo11': "Extraction was done by Barry Becker from the 1994 Census database.",
@@ -213,11 +218,24 @@ def DatesetInfo(request):
 
 
     }
+    else:
+        context = {
+            'hidden2': "hidden",
+            'list': "Invalid dataset",
+            'datasetinfo11': "Invalid dataset",
+            'datasetinfo12': "",
+            'datasetinfo13': "",
+
+        }
+
+
     return render(request, 'register/FactorAnalysis.html', context)
 
 def AnalysisScore(request):
 
-    context = {
+
+
+     context = {
         'hidden2':"hidden",
         'list': "AdultDateset",
         'datasetinfo11': "Extraction was done by Barry Becker from the 1994 Census database.",
@@ -237,11 +255,11 @@ def AnalysisScore(request):
         'datasetinfo115': "hours-per-week: continuous.",
         'datasetinfo116': "native-country: United-States, Cambodia, England, Puerto-Rico, Canada, Germany, Outlying-US(Guam-USVI-etc), India, Japan, Greece, South, China, Cuba, Iran, Honduras, Philippines, Italy, Poland, Jamaica, Vietnam, Mexico, Portugal, Ireland, France, Dominican-Republic, Laos, Ecuador, Taiwan, Haiti, Columbia, Hungary, Guatemala, Nicaragua, Scotland, Thailand, Yugoslavia, El-Salvador, Trinadad&Tobago, Peru, Hong, Holand-Netherlands.",
         'ScoreList': str(FactorAnalysisFunction.final_result_score),
-        'Conclusion1':"From the analysis result we can find the top effact financial status will be\n"+"[capital_gain], [capital_loss],[age], [hours_per_week], [marital_status], [native_country], [education_num]\nExclude non-changeable factor,as we can see: investment, working hours and education are important"
+        'Conclusion1':"From the analysis result we can find the top effact financial status will be\n"+"[capital_gain], [capital_loss],[age], [hours_per_week], [marital_status], [native_country], [education_num]\nExclude non-changeable factor,as we can see: investment, working hours and education are important"}
 
-    }
 
-    return render(request, 'register/FactorAnalysis.html', context)
+
+     return render(request, 'register/FactorAnalysis.html', context)
 
 def HowFactorImpact(request):
 #"hidden":"hidden",
@@ -321,8 +339,6 @@ def PredictPage(request):
 
 def PredictResult(request):
 
-    #user = User.objects.get(id=request.session['id'])
-
     workclass = "Private"
     # clean old data
     if (UserInfo.objects.filter(id=request.session['id']).exists()):
@@ -365,8 +381,6 @@ def PredictResult(request):
     return render(request, 'register/Predict.html', context)
 
 def PredictWealth(request):
-    #user = User.objects.get(id=request.session['id'])
-
 
     workclass = "Private"
     # clean old data if (UserInfo.objects.filter().exists()):
