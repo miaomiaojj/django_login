@@ -19,15 +19,20 @@ class wealthPredict:
   df = df[['age', 'location', 'workclass', 'education', 'marital_status', 'occupation', 'sex',  'hours_per_week', 'native_country','MonthyIncome_2020','Networth_2007','Networth_2008','Networth_2009','Networth_2010','Networth_2011','Networth_2012','Networth_2013','Networth_2014','Networth_2015','Networth_2016','Networth_2017','Networth_2018','Networth_2019','Networth_2020']].copy()
  #df.info()
 
-  y_list=df.Networth_2020.values#[:, -1]
-  X_list=df.iloc[:,10:23]    #df.age.values#[:, :1]
+  y_list=df.iloc[:,19:24] #Networth_2020.values
+  X_list=df.iloc[:,10:18]    #df.age.values#[:, :1]
 
-  y_array=np.array(y_list).reshape(-1,1)
-  X_array=np.array(X_list).reshape(-1,13)
+
+
+  y_array=np.array(y_list).reshape(-1,5)#1
+  X_array=np.array(X_list).reshape(-1,8)#13
+  print(X_array)
+  print("predict wealth,y ", y_array.shape)
+  print("predict wealth,x ", X_array.shape)
 
  # split into train and test datasets
   x_train, x_test, y_train, y_test = train_test_split(X_array, y_array)
-  print(x_train.shape)
+  #print(x_train.shape)
 
  # fit final model
   model = LinearRegression()

@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from .views import index,register,login,success,userinfocollect,FactorAnalysis,DatesetInfo,AnalysisScore,HowFactorImpact,PredictPage,PredictResult,PredictWealth#,t
+from .views import index,register,login,success,userinfocollect,FactorAnalysis,DatesetInfo,AnalysisScore,HowFactorImpact,PredictPage,PredictResult,PredictWealth,SimulatePredictSalary#,t
 urlpatterns = [
 
     url(r'^$', index),
@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^PredictPage$', PredictPage),
     url(r'^PredictResult$', PredictResult),
     url(r'^PredictWealth$', PredictWealth),
+    url(r'^SimulatePredictSalary$', SimulatePredictSalary)
    #
 
 ]

@@ -59,12 +59,12 @@ def login(request):
             print("login fail")
            # return redirect('/')
             return render(request, 'register/index.html',
-                          {'LoginMassage': "UserID or password wrong"})
+                          {'LoginMassage': "Email or password wrong"})
 
 
     else:
         return render(request, 'register/index.html',
-                      {'LoginMassage': "UserID not exist"})
+                      {'LoginMassage': "Email not exist, please register"})
 
            # return render(request, 'register/index.html')
 
@@ -172,7 +172,7 @@ def userinfocollect(request):
         "Suggestion": "Suggestion:",
         "Summary1": Summary1,
         "Summary2": Summary2,
-        "GoFactorAnalysis": "Factor effect Financial Statement Analysis"
+        "GoFactorAnalysis": "Analysis Factor"
 
     }
 
@@ -358,6 +358,8 @@ def PredictResult(request):
         # list.predict()
 
 
+
+
     else:
         print("user predict not exist")
 
@@ -373,6 +375,61 @@ def PredictResult(request):
         "native_country": UserInfolist["native_country"],
         "yourpredict":"Base on your personal information, your monthly income will be: ",
         "predict_result":'%.2f' % predictResult
+
+        #  "hidden":"hidden"
+
+    }
+
+    return render(request, 'register/Predict.html', context)
+
+def SimulatePredictSalary(request):
+    workclass = "Private"
+    if (UserInfo.objects.filter(id=request.session['id']).exists()):
+        print("user predict exist")
+
+        UserInfomation = np.array(UserInfo.objects.filter(id=request.session['id']).values())
+        print("UserInfomation", UserInfomation.flatten())
+        UserInfolist = UserInfomation[0]
+
+    else:
+        print("user predict not exist")
+
+
+    age = request.POST.get('age')
+    education = request.POST.get("education")
+    location = request.POST.get("location")
+    houseInfo = request.POST.get("houseInfo")
+    Maritalstatus = request.POST.get("Maritalstatus")
+    Occupation = request.POST.get("Occupation")
+    sex = request.POST.get("sex")
+    hours_per_week = request.POST.get("hours_per_week")
+    native_country = request.POST.get("native_country")
+
+    print("age",age)
+
+
+    PreparePredictlist = np.array([int(age), location, workclass, education,
+             Maritalstatus, Occupation, sex,
+             int(hours_per_week), native_country], dtype=object).reshape(1, -1)
+    print('new work hour',hours_per_week)
+    predictResult= float(SalaryPredict(PreparePredictlist).Predict())
+    print('%.2f' % predictResult)
+        # list.predict()
+
+
+
+    context = {
+       # "user": user,
+        "age": UserInfolist["age"],
+        "location": UserInfolist["location"],
+        "education": UserInfolist["education"],
+        "Maritalstatus": UserInfolist["Maritalstatus"],
+        "Occupation": UserInfolist["Occupation"],
+        "sex": UserInfolist["sex"],
+        "hours_per_week": UserInfolist["hours_per_week"],
+        "native_country": UserInfolist["native_country"],
+        "yourpredict_new":"Base on assumptions, your monthly income predict will be: ",
+        "predict_result_new":'%.2f' % predictResult
 
         #  "hidden":"hidden"
 
@@ -419,14 +476,17 @@ def PredictWealth(request):
     Networth_2017 = float(request.POST['Networth_2017'])
     Networth_2018 = float(request.POST['Networth_2018'])
     Networth_2019 = float(request.POST['Networth_2019'])
-  #  Networth_2020 = float(request.POST['Networth_2019'])
-
+    Networth_2020 = float(request.POST['Networth_2019'])
+#Networth_2007, Networth_2008,Networth_2009, Networth_2010, Networth_2011,
     PreparePredictWealthlist = np.array(
-        [Networth_2007, Networth_2008,Networth_2009, Networth_2010, Networth_2011, Networth_2012, Networth_2013, Networth_2014, Networth_2015, Networth_2016, Networth_2017, Networth_2018,Networth_2019], dtype=object).reshape(1, -1)
+        [Networth_2013, Networth_2014, Networth_2015, Networth_2016, Networth_2017, Networth_2018,Networth_2019,Networth_2020], dtype=object).reshape(1, -1)
 
 
-    predictWealthResult = float(wealthPredict(PreparePredictWealthlist).predict())
-    print('wealth predict %.2f' % predictWealthResult)
+    #predictWealthResult = float(wealthPredict(PreparePredictWealthlist).predict())
+    predictWealth=np.array(wealthPredict(PreparePredictWealthlist).predict())
+    predictWealthResult=predictWealth.astype(np.float)
+
+    print('wealth predict %.2f' % predictWealthResult[0])
     print(PreparePredictWealthlist)
 
     context = {
@@ -441,9 +501,14 @@ def PredictWealth(request):
         "native_country": UserInfolist["native_country"],
         "yourpredict":"Base on your personal information, your monthly income will be: ",
         "predict_result":'%.2f' % predictResult,
-        "yourWealthpredict":"Base on your Past year Networth information, your next year networth will be: ",
+        "yourWealthpredict":"Base on your Past year Networth information, your next 5 year networth will be: ",
+        "predictwealth_result1":'%.2f' % predictWealthResult[0],
+        "predictwealth_result2": '%.2f' % predictWealthResult[1],
+        "predictwealth_result3": '%.2f' % predictWealthResult[2],
+        "predictwealth_result4": '%.2f' % predictWealthResult[3],
+        "predictwealth_result5": '%.2f' % predictWealthResult[4]
 
-        "predictwealth_result": '%.2f' % predictWealthResult
+       # "predictwealth_result": '%.2f' % predictWealthResult
 
 
         #  "hidden":"hidden"
