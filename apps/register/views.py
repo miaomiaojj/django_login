@@ -14,15 +14,44 @@ def index(request):
 
 
 def register(request):
-    errors = User.objects.validator(request.POST)
-    if len(errors):
-        for tag, error in errors.iteritems():
-            messages.error(request, error, extra_tags=tag)
-        return redirect('/')
+   # errors = User.objects.validator(request.POST)
+    #if len(errors):
+     #   for tag, error in errors.iteritems():
+      #      messages.error(request, error, extra_tags=tag)
+       # return redirect('/')
+
 
     passwd = request.POST['password'].encode()
     salt = bcrypt.gensalt()
     hashed_password = bcrypt.hashpw(passwd, salt)
+
+    if(len(passwd) < 8 ):
+        print('password too weak')
+        return render(request, 'register/index.html',
+                      {'RegisterMassage': "password too weak, please set more than 8 digit password"})
+    #confirm_password
+    elif (passwd != request.POST['confirm_password'].encode()):
+        print('no equal pw')
+        return render(request, 'register/index.html',
+                      {'RegisterMassage': "Confirm password not match set password, please check"})
+
+    elif(request.POST['first_name']is None):
+        print('no first_name')
+        return render(request, 'register/index.html',
+                      {'RegisterMassage': "Please enter your first name"})
+
+    elif (request.POST['last_name'] is None):
+        print('no last_name')
+        return render(request, 'register/index.html',
+              {'RegisterMassage': "Please enter your last name"})
+
+    elif (request.POST['email'] is None):
+         print('no email')
+         return render(request, 'register/index.html',
+              {'RegisterMassage': "Please enter your email address"})
+
+
+
 
     if (User.objects.filter(email=request.POST['email']).exists()):
         print('user exist')
@@ -462,34 +491,29 @@ def PredictWealth(request):
         print("user predict not exist")
 
         # clean old data
+    print("request.POST['Networth_2018']",request.POST['Networth_2018'])
 
-    Networth_2007 = float(request.POST['Networth_2007'])
-    Networth_2008 = float(request.POST['Networth_2008'])
-    Networth_2009 = float(request.POST['Networth_2009'])
-    Networth_2010 = float(request.POST['Networth_2010'])
-    Networth_2011 = float(request.POST['Networth_2011'])
-    Networth_2012 = float(request.POST['Networth_2012'])
-    Networth_2013 = float(request.POST['Networth_2013'])
-    Networth_2014 = float(request.POST['Networth_2014'])
-    Networth_2015 = float(request.POST['Networth_2015'])
-    Networth_2016 = float(request.POST['Networth_2016'])
-    Networth_2017 = float(request.POST['Networth_2017'])
-    Networth_2018 = float(request.POST['Networth_2018'])
-    Networth_2019 = float(request.POST['Networth_2019'])
-    Networth_2020 = float(request.POST['Networth_2019'])
-#Networth_2007, Networth_2008,Networth_2009, Networth_2010, Networth_2011,
-    PreparePredictWealthlist = np.array(
+    if ((request.POST['Networth_2013'] != "") and (request.POST['Networth_2014'] != "") and (request.POST['Networth_2015'] != "") and (request.POST['Networth_2016'] != "") and (request.POST['Networth_2017'] != "") and (request.POST['Networth_2018'] != "") and (request.POST['Networth_2019'] != "") and (request.POST['Networth_2020'] != "")):
+     Networth_2013 = float(request.POST['Networth_2013'])
+     Networth_2014 = float(request.POST['Networth_2014'])
+     Networth_2015 = float(request.POST['Networth_2015'])
+     Networth_2016 = float(request.POST['Networth_2016'])
+     Networth_2017 = float(request.POST['Networth_2017'])
+     Networth_2018 = float(request.POST['Networth_2018'])
+     Networth_2019 = float(request.POST['Networth_2019'])
+     Networth_2020 = float(request.POST['Networth_2020'])
+     PreparePredictWealthlist = np.array(
         [Networth_2013, Networth_2014, Networth_2015, Networth_2016, Networth_2017, Networth_2018,Networth_2019,Networth_2020], dtype=object).reshape(1, -1)
 
 
-    #predictWealthResult = float(wealthPredict(PreparePredictWealthlist).predict())
-    predictWealth=np.array(wealthPredict(PreparePredictWealthlist).predict())
-    predictWealthResult=predictWealth.astype(np.float)
+      #predictWealthResult = float(wealthPredict(PreparePredictWealthlist).predict())
+     predictWealth=np.array(wealthPredict(PreparePredictWealthlist).predict())
+     predictWealthResult=predictWealth.astype(np.float)
 
-    print('wealth predict %.2f' % predictWealthResult[0])
-    print(PreparePredictWealthlist)
+     print('wealth predict %.2f' % predictWealthResult[0])
+     print(PreparePredictWealthlist)
 
-    context = {
+     context = {
         #"user": user,
         "age": UserInfolist["age"],
         "location": UserInfolist["location"],
@@ -501,7 +525,8 @@ def PredictWealth(request):
         "native_country": UserInfolist["native_country"],
         "yourpredict":"Base on your personal information, your monthly income will be: ",
         "predict_result":'%.2f' % predictResult,
-        "yourWealthpredict":"Base on your Past year Networth information, your next 5 year networth will be: ",
+       # "InfoNullCheck":"please fill in all information",
+        "yourWealthpredict": "Base on your Past year Networth information, your next 5 year networth will be: ",
         "predictwealth_result1":'%.2f' % predictWealthResult[0],
         "predictwealth_result2": '%.2f' % predictWealthResult[1],
         "predictwealth_result3": '%.2f' % predictWealthResult[2],
@@ -513,6 +538,29 @@ def PredictWealth(request):
 
         #  "hidden":"hidden"
 
-    }
+     }
+    else:
+        print("networth null")
+        context = {
+            # "user": user,
+            "age": UserInfolist["age"],
+            "location": UserInfolist["location"],
+            "education": UserInfolist["education"],
+            "Maritalstatus": UserInfolist["Maritalstatus"],
+            "Occupation": UserInfolist["Occupation"],
+            "sex": UserInfolist["sex"],
+            "hours_per_week": UserInfolist["hours_per_week"],
+            "native_country": UserInfolist["native_country"],
+            "yourpredict": "Base on your personal information, your monthly income will be: ",
+            "predict_result": '%.2f' % predictResult,
+            "InfoNullCheck": "please fill in all information",
+
+
+            # "predictwealth_result": '%.2f' % predictWealthResult
+
+            #  "hidden":"hidden"
+
+        }
+
 
     return render(request, 'register/Predict.html', context)
