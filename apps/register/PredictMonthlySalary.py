@@ -19,36 +19,45 @@ class SalaryPredict():
   y_list=df.MonthyIncome_2020.values
   X_list=df.iloc[:,:9]
 
-  y_array=np.array(y_list).reshape(-1,1)
-  X_array=np.array(X_list).reshape(-1,9)
+  encode_list = df.iloc[:, :10]
+  encode_array = np.array(encode_list).reshape(-1, 10)
   enc = OrdinalEncoder()
-  enc.fit(X_array)
-  Xtransformed=enc.transform(X_array)
-  print(enc.transform(X_array))
+  enc.fit(encode_array)
+  transformed = enc.transform(encode_array)
+  print(enc.transform(encode_array)[:10, 9])
 
+  Xtransformed = transformed[:, :9]
+  print(Xtransformed)
+  y_transformed = transformed[:, 9:]
+  print(y_transformed)
 
- # split into train and test datasets
-  x_train, x_test, y_train, y_test = train_test_split(Xtransformed, y_array)
+  x_train, x_test, y_train, y_test = train_test_split(Xtransformed, y_transformed)
   print(x_train.shape)
 
-
- # fit final model
+  # fit final model
   model = LinearRegression()
   model.fit(x_train, y_train)
-  print("intercept",model.intercept_)
+  print("intercept", model.intercept_)
   print("coef", model.coef_)
-  print("model.score(x_train, y_train)",model.score(x_train, y_train))
-  print("model.score(x_test, y_test)",model.score(x_test, y_test))
-
+  print("model.score(x_train, y_train)", model.score(x_train, y_train))
+  print("model.score(x_test, y_test)", model.score(x_test, y_test))
 
   XPredict_transformed = enc.transform(self.XPredict_salary)
   # make a prediction
   ynew = model.predict(XPredict_transformed)
-  print("model.score(x_pred, y_pred)",model.score(XPredict_transformed, ynew))
+  ynew_float = int(ynew[0, 0])
+  X_Y = np.append(XPredict_transformed, ynew_float)
+  print(X_Y)
+  X_Y_reserve = enc.inverse_transform(np.array(X_Y).reshape(1, -1))
+  print(X_Y_reserve)
+  # print("model.score(x_pred, y_pred)",model.score(XPredict_transformed, ynew))
+  X_reserve = X_Y_reserve[:, :9]
+  Y_reserve = X_Y_reserve[:, 9:]
+  #print("model.score(x_pred, y_pred)",model.score(XPredict_transformed, ynew))
   # show the inputs and predicted outputs
   for i in range(len(XPredict_transformed)):
-    print("X=%s, Predicted=%s" % (XPredict_transformed[i], ynew[i]))
-    return ynew[i]
+    print("X=%s, Predicted=%s" % (X_reserve[i], Y_reserve[i]))
+    return Y_reserve[i]
 
 
 

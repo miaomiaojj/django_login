@@ -14,11 +14,7 @@ def index(request):
 
 
 def register(request):
-   # errors = User.objects.validator(request.POST)
-    #if len(errors):
-     #   for tag, error in errors.iteritems():
-      #      messages.error(request, error, extra_tags=tag)
-       # return redirect('/')
+
 
 
     passwd = request.POST['password'].encode()
@@ -80,13 +76,11 @@ def login(request):
 
             print("login success")
             request.session['id'] = user.id
-           # return redirect('/success')
 
-           # return render(request, 'register/success.html')
             return redirect('/success')
         else:
             print("login fail")
-           # return redirect('/')
+
             return render(request, 'register/index.html',
                           {'LoginMassage': "Email or password wrong"})
 
@@ -95,7 +89,6 @@ def login(request):
         return render(request, 'register/index.html',
                       {'LoginMassage': "Email not exist, please register"})
 
-           # return render(request, 'register/index.html')
 
 
 def success(request):
@@ -108,7 +101,7 @@ def success(request):
 
     }
 
-    # return render(request, 'name_of_page.html', {'form': form})
+
     return render(request, 'register/success.html', context)
 
 
@@ -120,7 +113,7 @@ def userinfocollect(request):
     # clean old data
     if (UserInfo.objects.filter(email=user).exists()):
         print("user exit email")
-   #
+
         print( UserInfo.objects.filter(email=user))
         UserInfo.objects.filter(email=user).delete()
 
@@ -301,7 +294,7 @@ def HowFactorImpact(request):
         "Analysisgraph5": "/media/AdultDataset/occupation_income.png",
         "Analysisgraph6": "/media/AdultDataset/relationship_income.png",
         "Analysisgraph7": "/media/AdultDataset/sex_income.png",
-             #  "Analysisgraph8": "/media/AdultDataset/workclass_income.png"
+
         'list': "AdultDateset",
         'datasetinfo11': "Extraction was done by Barry Becker from the 1994 Census database.",
         'datasetinfo12': "Attribute Information:",
@@ -382,9 +375,7 @@ def PredictResult(request):
              UserInfolist["Maritalstatus"], UserInfolist["Occupation"], UserInfolist["sex"],
              int(UserInfolist["hours_per_week"]), UserInfolist["native_country"]], dtype=object).reshape(1, -1)
         print(PreparePredictlist)
-        predictResult= float(SalaryPredict(PreparePredictlist).Predict())
-        print('%.2f' % predictResult)
-        # list.predict()
+        predictResult= SalaryPredict(PreparePredictlist).Predict()
 
 
 
@@ -403,7 +394,7 @@ def PredictResult(request):
         "hours_per_week": UserInfolist["hours_per_week"],
         "native_country": UserInfolist["native_country"],
         "yourpredict":"Base on your personal information, your monthly income will be: ",
-        "predict_result":'%.2f' % predictResult
+        "predict_result":predictResult
 
         #  "hidden":"hidden"
 
@@ -441,8 +432,8 @@ def SimulatePredictSalary(request):
              Maritalstatus, Occupation, sex,
              int(hours_per_week), native_country], dtype=object).reshape(1, -1)
     print('new work hour',hours_per_week)
-    predictResult= float(SalaryPredict(PreparePredictlist).Predict())
-    print('%.2f' % predictResult)
+    predictResult= SalaryPredict(PreparePredictlist).Predict()
+
         # list.predict()
 
 
@@ -458,7 +449,7 @@ def SimulatePredictSalary(request):
         "hours_per_week": UserInfolist["hours_per_week"],
         "native_country": UserInfolist["native_country"],
         "yourpredict_new":"Base on assumptions, your monthly income predict will be: ",
-        "predict_result_new":'%.2f' % predictResult
+        "predict_result_new":predictResult
 
         #  "hidden":"hidden"
 
@@ -482,9 +473,8 @@ def PredictWealth(request):
              UserInfolist["Maritalstatus"], UserInfolist["Occupation"], UserInfolist["sex"],
              int(UserInfolist["hours_per_week"]), UserInfolist["native_country"]], dtype=object).reshape(1, -1)
         print(PreparePredictlist)
-        predictResult = float(SalaryPredict(PreparePredictlist).Predict())
-        print('%.2f' % predictResult)
-        # list.predict()
+        predictResult = SalaryPredict(PreparePredictlist).Predict()
+
 
 
     else:
@@ -524,7 +514,7 @@ def PredictWealth(request):
         "hours_per_week": UserInfolist["hours_per_week"],
         "native_country": UserInfolist["native_country"],
         "yourpredict":"Base on your personal information, your monthly income will be: ",
-        "predict_result":'%.2f' % predictResult,
+        "predict_result":predictResult,
        # "InfoNullCheck":"please fill in all information",
         "yourWealthpredict": "Base on your Past year Networth information, your next 5 year networth will be: ",
         "predictwealth_result1":'%.2f' % predictWealthResult[0],
@@ -552,7 +542,7 @@ def PredictWealth(request):
             "hours_per_week": UserInfolist["hours_per_week"],
             "native_country": UserInfolist["native_country"],
             "yourpredict": "Base on your personal information, your monthly income will be: ",
-            "predict_result": '%.2f' % predictResult,
+            "predict_result":  predictResult,
             "InfoNullCheck": "please fill in all information",
 
 
