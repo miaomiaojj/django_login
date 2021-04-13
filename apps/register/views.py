@@ -68,9 +68,9 @@ def login(request):
     if (User.objects.filter(email=request.POST['login_email']).exists()):
         user = User.objects.filter(email=request.POST['login_email'])[0]
         passwd = request.POST['login_password'].encode()
-        print("1111:,", passwd)
+
         n = len(user.password.encode()) - 1
-        print("2222:,", user.password.encode()[2:n])
+
 
         if bcrypt.checkpw(passwd, user.password.encode()[2:n]):
 
@@ -216,7 +216,7 @@ def DatesetInfo(request):
     #  Dataset_list = {"AdultDateset"}
 
     dataset = request.POST['DatasetDropdown']
-    print("dataset Select", dataset)
+
     if (dataset == "AdultDataset"):
       context = {
         'hidden2': "hidden",
@@ -322,8 +322,6 @@ def HowFactorImpact(request):
 def PredictPage(request):
 
 
- print("PredictPageid=request.session['id']",request.session['id'])
- #user = User.objects.get(id=request.session['id'])
 
  workclass="Private"
 # clean old data
@@ -367,14 +365,14 @@ def PredictResult(request):
         print("user predict exist")
 
         UserInfomation = np.array(UserInfo.objects.filter(id=request.session['id']).values())
-        print("UserInfomation", UserInfomation.flatten())
+
         UserInfolist = UserInfomation[0]
-        print(UserInfolist["age"])
+
         PreparePredictlist = np.array(
             [int(UserInfolist["age"]), UserInfolist["location"], workclass, UserInfolist["education"],
              UserInfolist["Maritalstatus"], UserInfolist["Occupation"], UserInfolist["sex"],
              int(UserInfolist["hours_per_week"]), UserInfolist["native_country"]], dtype=object).reshape(1, -1)
-        print(PreparePredictlist)
+
         predictResult= SalaryPredict(PreparePredictlist).Predict()
 
 
@@ -425,17 +423,11 @@ def SimulatePredictSalary(request):
     hours_per_week = request.POST.get("hours_per_week")
     native_country = request.POST.get("native_country")
 
-    print("age",age)
-
-
     PreparePredictlist = np.array([int(age), location, workclass, education,
              Maritalstatus, Occupation, sex,
              int(hours_per_week), native_country], dtype=object).reshape(1, -1)
-    print('new work hour',hours_per_week)
+
     predictResult= SalaryPredict(PreparePredictlist).Predict()
-
-        # list.predict()
-
 
 
     context = {
@@ -465,14 +457,14 @@ def PredictWealth(request):
         print("user predict exist")
 
         UserInfomation = np.array(UserInfo.objects.filter(id=request.session['id']).values())
-        print("UserInfomation", UserInfomation.flatten())
+
         UserInfolist = UserInfomation[0]
-        print(UserInfolist["age"])
+
         PreparePredictlist = np.array(
             [int(UserInfolist["age"]), UserInfolist["location"], workclass, UserInfolist["education"],
              UserInfolist["Maritalstatus"], UserInfolist["Occupation"], UserInfolist["sex"],
              int(UserInfolist["hours_per_week"]), UserInfolist["native_country"]], dtype=object).reshape(1, -1)
-        print(PreparePredictlist)
+
         predictResult = SalaryPredict(PreparePredictlist).Predict()
 
 
@@ -480,8 +472,7 @@ def PredictWealth(request):
     else:
         print("user predict not exist")
 
-        # clean old data
-    print("request.POST['Networth_2018']",request.POST['Networth_2018'])
+
 
     if ((request.POST['Networth_2013'] != "") and (request.POST['Networth_2014'] != "") and (request.POST['Networth_2015'] != "") and (request.POST['Networth_2016'] != "") and (request.POST['Networth_2017'] != "") and (request.POST['Networth_2018'] != "") and (request.POST['Networth_2019'] != "") and (request.POST['Networth_2020'] != "")):
      Networth_2013 = float(request.POST['Networth_2013'])
@@ -500,8 +491,7 @@ def PredictWealth(request):
      predictWealth=np.array(wealthPredict(PreparePredictWealthlist).predict())
      predictWealthResult=predictWealth.astype(np.float)
 
-     print('wealth predict %.2f' % predictWealthResult[0])
-     print(PreparePredictWealthlist)
+
 
      context = {
         #"user": user,
@@ -530,7 +520,7 @@ def PredictWealth(request):
 
      }
     else:
-        print("networth null")
+
         context = {
             # "user": user,
             "age": UserInfolist["age"],

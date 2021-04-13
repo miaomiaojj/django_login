@@ -5,6 +5,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OrdinalEncoder
 import matplotlib.pyplot as plt
 import statistics
+from sklearn.tree import DecisionTreeClassifier # Import Decision Tree Classifier
+from sklearn.model_selection import train_test_split # Import train_test_split function
+from sklearn import metrics #Import scikit-learn metrics module for accuracy calculation
 
 
 class SalaryPredict():
@@ -34,22 +37,28 @@ class SalaryPredict():
   print(x_train.shape)
 
 
- # fit final model
-  model = LinearRegression()
-  model.fit(x_train, y_train)
-  print("intercept",model.intercept_)
-  print("coef", model.coef_)
-  print("model.score(x_train, y_train)",model.score(x_train, y_train))
-  print("model.score(x_test, y_test)",model.score(x_test, y_test))
 
   XPredict_salary=np.array([27, 'Singapore', 'Private', 'Doctorate' ,'Never-married', 'Armed-Forces','Female', 40, 'Singapore'],dtype=object).reshape(1, -1)
 
   XPredict_transformed = enc.transform(XPredict_salary)
-  # make a prediction
-  ynew = model.predict(XPredict_transformed)
+
+  clf = DecisionTreeClassifier()
+
+  # Train Decision Tree Classifer
+  clf = clf.fit(x_train, y_train)
+
+  # Predict the response for test dataset
+  y_pred = clf.predict(x_test)
+  print(np.array(x_test[0]).reshape(1, -1))
+  print(np.array(XPredict_transformed).reshape(1, -1))
+
+  ynew = clf.predict(np.array(XPredict_transformed).reshape(1, -1))
+  print("Accuracy:", metrics.accuracy_score(y_test, y_pred))
   print(ynew)
 
-  ynew_float = int(ynew[0,0])
+
+
+  ynew_float = ynew[0]
 
 
 
@@ -60,6 +69,8 @@ class SalaryPredict():
   #print("model.score(x_pred, y_pred)",model.score(XPredict_transformed, ynew))
   X_reserve=X_Y_reserve[:,:9]
   Y_reserve=X_Y_reserve[:,9:]
+
+  #-----------------------------------
 
 
 

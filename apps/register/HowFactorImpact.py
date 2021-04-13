@@ -2,10 +2,10 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# 最影响结果的K个特征
+
 from sklearn.feature_selection import SelectKBest
 
-# 卡方检验，作为SelectKBest的参数
+
 from sklearn.feature_selection import chi2
 
 class FactorAnalysisFunction:
